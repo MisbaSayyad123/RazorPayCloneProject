@@ -1,4 +1,4 @@
-package com.codingshuttle.razorpay.merchant.entity;
+package com.codingshuttle.razorpay.common.enums;
 
 public enum SettlementStatus {
     INITIATED,
