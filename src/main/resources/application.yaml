@@ -16,3 +16,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 debug: false
+
+payment:
+  order:
+    default-order-expiry-minutes: 30

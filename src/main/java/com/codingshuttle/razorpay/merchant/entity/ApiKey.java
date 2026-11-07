@@ -30,10 +30,14 @@ public class ApiKey {
     @Column(nullable = false,length = 200)
     private String keySecreteHash;
 
+    @Column(length = 200)
+    private String previousKeySecreteHash;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 10)
     private Environment environment;
 
+    @Builder.Default
     @Column(nullable = false)
     private boolean enabled=true;
 
