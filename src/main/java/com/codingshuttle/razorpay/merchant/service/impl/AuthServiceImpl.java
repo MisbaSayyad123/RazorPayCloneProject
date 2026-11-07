@@ -3,6 +3,7 @@ package com.codingshuttle.razorpay.merchant.service.impl;
 import com.codingshuttle.razorpay.common.enums.MerchantStatus;
 import com.codingshuttle.razorpay.common.enums.UserRole;
 import com.codingshuttle.razorpay.common.exception.DuplicateResourceException;
+import com.codingshuttle.razorpay.merchant.Mapper.MerchantMapper;
 import com.codingshuttle.razorpay.merchant.dto.request.MerchantSignupRequest;
 import com.codingshuttle.razorpay.merchant.dto.response.MerchantResponse;
 import com.codingshuttle.razorpay.merchant.entity.AppUser;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthServiceImpl implements AuthService {
     private final AppUserRepository appUserRepository;
     private final MerchantRepository merchantRepository;
+    private final MerchantMapper merchantMapper;
 
     @Override
     @Transactional
@@ -32,13 +34,18 @@ public class AuthServiceImpl implements AuthService {
                     "Merchant with email already exists: "+request.email());
         }
 
-        Merchant merchant=Merchant.builder()
+
+        Merchant merchant=merchantMapper.toMerchant(request);
+        merchant.setStatus(MerchantStatus.PENDING_KYC);
+    /*    Merchant merchant=Merchant.builder()
                 .name(request.name())
                 .email(request.email())
                 .businessName(request.businessName())
                 .businessType(request.businessType())
                 .status(MerchantStatus.PENDING_KYC)
                 .build();
+
+     */
         merchant=merchantRepository.save(merchant);
 
         AppUser appUser=AppUser.builder()
@@ -50,8 +57,11 @@ public class AuthServiceImpl implements AuthService {
 
         appUser=appUserRepository.save(appUser);
 
-        return new MerchantResponse(merchant.getId(),merchant.getName(),
+        return merchantMapper.toMerchantResponse(merchant);
+      /*  return new MerchantResponse(merchant.getId(),merchant.getName(),
                 merchant.getEmail(),merchant.getBusinessName(),
                 merchant.getBusinessType(),merchant.getStatus());
+
+       */
     }
 }

@@ -1,10 +1,12 @@
 package com.codingshuttle.razorpay.operations.entity;
 
+import com.codingshuttle.razorpay.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import org.springframework.jmx.export.annotation.ManagedNotification;
 
 @Entity
 @Table(name = "settlement_payment")
+
 public class SettlementPayment {
 
     @EmbeddedId
