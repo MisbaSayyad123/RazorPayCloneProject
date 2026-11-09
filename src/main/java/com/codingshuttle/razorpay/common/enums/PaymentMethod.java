@@ -1,6 +1,6 @@
 package com.codingshuttle.razorpay.common.enums;
 
-public enum PaymentMethods {
+public enum PaymentMethod {
     CARDS,
     UPI,
     NETBANKING,
